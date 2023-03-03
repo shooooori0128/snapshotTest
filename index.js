@@ -9,7 +9,6 @@ dayjs.locale(ja);
 
 const beforeUrl = process.argv[2];
 const afterUrl = process.argv[3];
-const mobile = process.argv[4];
 
 const delay = (second) => new Promise((resolve) => setTimeout(resolve, second * 1000));
 
