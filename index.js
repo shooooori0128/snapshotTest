@@ -15,19 +15,20 @@ const delay = (second) => new Promise((resolve) => setTimeout(resolve, second * 
 const snapScreenshot = async (url, imageDir, prefix) => {
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
+
+  await page.setViewport({ width: 1024, height: 768 });
   
   const doLogin = await (async () => {
     const loginUrl = `${new URL(url).origin}/signin`;
     const userName = ''; // ← ユーザー名を入れてください
     const password = ''; // ← パスワードを入れてください
     
-    await page.setViewport({ width: 1024, height: 768 });
     await page.goto(loginUrl, { waitUntil: 'networkidle0' });
     await page.type('input[id=":r1:"]', userName);
     await page.type('input[id=":r3:"]', password);
     await Promise.all([
-        page.waitForNavigation({ waitUntil: 'networkidle0' }),
-        page.click('#__next > div > div > div > div > div.MuiCardActions-root.MuiCardActions-spacing.css-1jst1nq-MuiCardActions-root > button'),
+      page.waitForNavigation({ waitUntil: 'networkidle0' }),
+      page.click('#__next > div > div > div > div > div.MuiCardActions-root.MuiCardActions-spacing.css-1jst1nq-MuiCardActions-root > button'),
     ]);
   })();
 
